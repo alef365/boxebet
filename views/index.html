@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boxebet</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="">
+    <header>
+      <div class="nav">
+        <input type="checkbox" id="nav-check" />
+        <div class="nav-header">
+          <div class="nav-title">BoxeBet</div>
+        </div>
+        <div class="nav-btn">
+          <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+
+        <div class="nav-links">
+          <a href="#">Teste</a>
+          <a href="#">Teste</a>
+          <a href="#">Teste</a>
+          <a href="#">Teste</a>
+          <a href="#">Teste</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <img src="./17-8-2023-HEUXPTRYF9.webp" />
+      </div>
+      <div class="cta-container">
+        <h2>APOSTE NO VENCEDOR!</h2>
+        <p>ESCOLHA O VENCEDOR DE CADA LUTA E A CONDIÇÃO DE VITÓRIA</p>
+      </div>
+
+      <form id="apostaForm" class="" method="" autocomplete="off">
+        {% for luta in lutas %}
+        <!-- <div class="luta-container"> -->
+        <h3 class="fight-call">
+          Luta {{ luta.id }} - Escolha o lutador vencedor
+        </h3>
+        <div class="card container">
+          <div class="corner">
+            <!-- <div class="left-corner">
+                  <label class="">
+                    <div class="fighter grid">
+                      <img
+                        src="./{{ luta.lutador1.imagem }}"
+                        alt="Lutador {{ luta.lutador1.nome }}"
+                      />
+                    </div>
+                    <div class="fighter-name">
+                      <div class="highlight"></div>
+                      {{ luta.lutador1.nome }}
+                      <input
+                        type="radio"
+                        name="luta{{ luta.id }}_lutador"
+                        value="lutador1"
+                        data-luta-id="{{ luta.id }}"
+                      />
+                    </div>
+                    <span class="label-container"></span>
+                  </label>
+                </div> -->
+
+            <label class="control control-radio left-corner">
+              <div class="fighter grid">
+                <img
+                  src="./lutadores/toWEBP/{{ luta.lutador1.imagem }}"
+                  alt="Lutador {{ luta.lutador1.nome }}"
+                />
+              </div>
+              <div class="fighter-name">
+                <div class="highlight"></div>
+                {{ luta.lutador1.nome }}
+                <input
+                  type="radio"
+                  name="luta{{ luta.id }}_lutador"
+                  value="lutador1"
+                  data-luta-id="{{ luta.id }}"
+                />
+                <div class="control_indicator">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:svgjs="http://svgjs.com/svgjs"
+                    width="512"
+                    height="512"
+                    x="0"
+                    y="0"
+                    viewBox="0 0 510 510"
+                    style="enable-background: new 0 0 512 512"
+                    xml:space="preserve"
+                    class=""
+                  >
+                    <g>
+                      <circle
+                        cx="255"
+                        cy="255.004"
+                        r="60"
+                        fill="#cecece"
+                        data-original="#000000"
+                        opacity="1"
+                        class=""
+                      ></circle>
+                      <path
+                        d="M466.185 176.736c-47.819-5.272-95.461-22.576-137.774-50.043-44.561-28.925-102.248-28.934-146.821 0-42.314 27.467-89.957 44.771-137.775 50.043L0 181.567v146.874l43.814 4.83c47.82 5.272 95.463 22.577 137.775 50.043 21.86 14.19 47.245 21.69 73.41 21.69s51.55-7.5 73.411-21.69c42.312-27.466 89.953-44.77 137.774-50.043l43.815-4.83V181.567zM135 270.004H60v-30h75zm120 75c-49.626 0-90-40.374-90-90s40.374-90 90-90 90 40.374 90 90-40.374 90-90 90zm195-75h-75v-30h75z"
+                        fill="#000"
+                        data-original="#000000"
+                        opacity="1"
+                        class=""
+                      ></path>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </label>
+
+            <div class="luta grid">
+              <!-- {% set winning = ['NOCAUTE', 'NOCAUTE TÉCNICO', 'DECISÃO UNÂNIME', 'DECISÃO DIVIDIDA', 'EMPATE', 'ANULADA'] %} -->
+              {% set winning = ['KO', 'TKO', 'UD', 'SD', 'Draw', 'Null'] %} {%
+              for win in winning %}
+              <div class="win-condition">
+                <label
+                  class="control control-radio"
+                  for="vitoria-{{ luta.id }}_{{ win }}"
+                >
+                  <input
+                    type="radio"
+                    name="vitoria-{{ luta.id }}"
+                    id="vitoria-{{ luta.id }}_{{ win }}"
+                    value="{{ win }}"
+                    unchecked
+                  />
+                  {{ win }}
+                  <div class="control_indicator"></div>
+                </label>
+              </div>
+              {% endfor %}
+              <a class="win-disclaimer" href="#">?</a>
+              <!-- Modal de explicação das condições de vitória -->
+              
+            </div>
+
+            <label class="control control-radio right-corner">
+              <div class="fighter grid">
+                <img
+                  src="./lutadores/toWEBP/{{ luta.lutador2.imagem }}"
+                  alt="Lutador {{ luta.lutador2.nome }}"
+                />
+              </div>
+              <div class="fighter-name">
+                <div class="highlight"></div>
+                {{ luta.lutador2.nome }}
+                <input
+                  type="radio"
+                  name="luta{{ luta.id }}_lutador"
+                  value="lutador2"
+                  data-luta-id="{{ luta.id }}"
+                />
+                <div class="control_indicator">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:svgjs="http://svgjs.com/svgjs"
+                    width="512"
+                    height="512"
+                    x="0"
+                    y="0"
+                    viewBox="0 0 510 510"
+                    style="enable-background: new 0 0 512 512"
+                    xml:space="preserve"
+                    class=""
+                  >
+                    <g>
+                      <circle
+                        cx="255"
+                        cy="255.004"
+                        r="60"
+                        fill="#cecece"
+                        data-original="#000000"
+                        opacity="1"
+                        class=""
+                      ></circle>
+                      <path
+                        d="M466.185 176.736c-47.819-5.272-95.461-22.576-137.774-50.043-44.561-28.925-102.248-28.934-146.821 0-42.314 27.467-89.957 44.771-137.775 50.043L0 181.567v146.874l43.814 4.83c47.82 5.272 95.463 22.577 137.775 50.043 21.86 14.19 47.245 21.69 73.41 21.69s51.55-7.5 73.411-21.69c42.312-27.466 89.953-44.77 137.774-50.043l43.815-4.83V181.567zM135 270.004H60v-30h75zm120 75c-49.626 0-90-40.374-90-90s40.374-90 90-90 90 40.374 90 90-40.374 90-90 90zm195-75h-75v-30h75z"
+                        fill="#000"
+                        data-original="#000000"
+                        opacity="1"
+                        class=""
+                      ></path>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- </div> -->
+        <div class="submit-bet grid">
+          <span>Valor da aposta:</span>
+          <select name="selectBet" id="selectBet">
+            <option value="50">R$50</option>
+            <option value="40">R$40</option>
+            <option value="30">R$30</option>
+            <option value="20">R$20</option>
+            <option value="10">R$10</option>
+          </select>
+
+          <label for="" id="resultadoLabel">x0,0</label>
+          <span id="resultado-ganhos">R$0,00</span>
+        </div>
+        <input type="submit" value="Apostar" class="bet-button" />
+      </form>
+      <div id="winModal" class="modal hide-modal">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <h2>Entenda as Condições de Vitória</h2>
+          
+          <ul>
+            <li>
+              <strong>KO:</strong> Nocaute - O lutador vence quando
+              derruba o oponente e ele não consegue se levantar antes da
+              contagem de dez segundos.
+            </li>
+            <li>
+              <strong>TKO:</strong> Nocaute Técnico - O lutador vence
+              quando o árbitro interrompe a luta devido à incapacidade
+              do oponente de continuar lutando.
+            </li>
+            <li>
+              <strong>UD:</strong> Decisão Unânime - O lutador vence por
+              decisão dos juízes, onde todos eles concordam que ele foi
+              o vencedor.
+            </li>
+            <li>
+              <strong>SD:</strong> Decisão Dividida - O lutador vence
+              por decisão dos juízes, mas há discordância entre eles
+              sobre o vencedor.
+            </li>
+            <li>
+              <strong>Draw:</strong> Empate - A luta termina sem um
+              vencedor claro devido à pontuação dos juízes ser igual
+              para ambos os lutadores.
+            </li>
+            <li>
+              <strong>Null:</strong> Luta Anulada - A luta é cancelada
+              devido a uma situação extraordinária que impede sua
+              continuação.
+            </li>
+          </ul>
+          <p>
+            Escolha a condição de vitória que você acredita ser mais
+            provável para cada luta e faça sua aposta!
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container-footer">
+          <div class="row-footer">
+              <!-- footer col-->
+              <div class="footer-col">
+                  <h4>Empresa</h4>
+                  <ul>
+                      <li><a href="#"> Quem somos </a></li>
+                      <li><a href=""> nossos serviços </a></li>
+                      <li><a href=""> política de privacidade </a></li>
+                      <li><a href=""> programa de afiliados</a></li>
+                  </ul>
+              </div>
+              <!--end footer col-->
+              <!-- footer col-->
+              <div class="footer-col">
+                  <h4>Obter ajuda</h4>
+                  <ul>
+                      <li><a href="#">FAQ</a></li>
+                      <li><a href="#">Transporte</a></li>
+                      <li><a href="#">devoluções</a></li>
+                      <li><a href="#">Status De Pedido</a></li>
+                      <li><a href="#">Opções De Pagamento</a></li>
+                  </ul>
+              </div>
+              <!--end footer col-->
+              <!-- footer col-->
+              <div class="footer-col">
+                  <h4>Loja online</h4>
+                  <ul>
+                      <li><a href="#">Relógio</a></li>
+                      <li><a href="#">Saco</a></li>
+                      <li><a href="#">Calçado</a></li>
+                      <li><a href="#">Endereço</a></li>
+                  </ul>
+              </div>
+              <!--end footer col-->
+              <!-- footer col-->
+              <div class="footer-col">
+                  <h4>Se subescreva!</h4>
+                  <div class="form-sub">
+                      <form>
+                          <input type="email" placeholder="Digite o seu e-mail" required>
+                          <button>subscrever</button>
+                      </form>
+                  </div>
+
+                  <div class="medias-socias">
+                      <a href="#"> <i class="fa fa-facebook"></i> </a>
+                      <a href="#"> <i class="fa fa-instagram"></i> </a>
+                      <a href="#"> <i class="fa fa-twitter"></i> </a>
+                      <a href="#"> <i class="fa fa-linkedin"></i> </a>
+                  </div>
+
+              </div>
+              <!--end footer col-->
+          </div>
+      </div>
+  </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
